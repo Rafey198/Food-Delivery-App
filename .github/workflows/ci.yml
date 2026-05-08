@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: food
+          POSTGRES_USER: food
+          POSTGRES_PASSWORD: food
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd="pg_isready -U food" --health-interval=10s --health-timeout=5s --health-retries=5
+    env:
+      DATABASE_URL: postgresql://food:food@localhost:5432/food?schema=public
+      REDIS_URL: ''
+      NODE_ENV: test
+      JWT_ACCESS_SECRET: test
+      JWT_REFRESH_SECRET: test
+      NEXT_PUBLIC_API_URL: http://localhost:4000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run db:generate
+      - run: npm run db:push
+      - run: npm run db:seed
+      - run: npm run typecheck --workspaces --if-present
+      - run: npm run build
+      - run: npm test --workspaces --if-present
