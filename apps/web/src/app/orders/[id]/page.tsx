@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Header } from '@/components/Header';
 import { api, getAccessToken } from '@/lib/api';
 import { CheckCircle, Clock, MapPin, Phone, ChefHat, Bike, PackageCheck } from 'lucide-react';
@@ -36,8 +36,8 @@ interface Order {
   courier?: { user: { name: string; phone?: string } } | null;
 }
 
-export default function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function OrderDetailPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const [order, setOrder] = useState<Order | null>(null);
   const [courierLoc, setCourierLoc] = useState<{ lat: number; lon: number } | null>(null);
   const wsRef = useRef<WebSocket | null>(null);

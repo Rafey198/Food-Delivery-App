@@ -49,10 +49,10 @@ export default function Home() {
               <div className="relative">
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    'https://source.unsplash.com/featured/300x320/?biryani',
-                    'https://source.unsplash.com/featured/300x320/?pizza',
-                    'https://source.unsplash.com/featured/300x320/?burger',
-                    'https://source.unsplash.com/featured/300x320/?bowl',
+                    'https://loremflickr.com/300/320/biryani,food',
+                    'https://loremflickr.com/300/320/pizza,food',
+                    'https://loremflickr.com/300/320/burger,food',
+                    'https://loremflickr.com/300/320/bowl,food',
                   ].map((src, i) => (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img key={i} src={src} alt="" className="h-44 w-full rounded-2xl object-cover shadow-soft md:h-56" />
@@ -79,7 +79,7 @@ export default function Home() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`https://source.unsplash.com/featured/200x200/?${encodeURIComponent(c)}`}
+                  src={`https://loremflickr.com/200/200/${encodeURIComponent(c)},food`}
                   alt={c}
                   className="h-20 w-20 rounded-2xl object-cover transition group-hover:scale-105"
                 />

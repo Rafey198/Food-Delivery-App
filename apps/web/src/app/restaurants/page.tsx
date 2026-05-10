@@ -123,7 +123,7 @@ function RestaurantsPage() {
                   <div className="relative h-40 w-full overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={r.bannerUrl ?? `https://source.unsplash.com/featured/600x400/?${encodeURIComponent(r.cuisineTypes[0] ?? 'food')}`}
+                      src={r.bannerUrl ?? `https://loremflickr.com/600/400/${encodeURIComponent(r.cuisineTypes[0] ?? 'food')},food`}
                       alt={r.name}
                       className="h-full w-full object-cover transition group-hover:scale-105"
                     />

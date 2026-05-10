@@ -55,7 +55,7 @@ export default function CartPage() {
               <div key={it.id} className="card flex items-center gap-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={it.imageUrl ?? `https://source.unsplash.com/featured/100x100/?${encodeURIComponent(it.name)}`}
+                  src={it.imageUrl ?? `https://loremflickr.com/100/100/${encodeURIComponent(it.name)},food`}
                   alt={it.name}
                   className="h-16 w-16 rounded-xl object-cover"
                 />

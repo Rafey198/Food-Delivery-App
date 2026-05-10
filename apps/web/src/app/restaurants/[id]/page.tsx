@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { api } from '@/lib/api';
@@ -45,8 +45,8 @@ interface Restaurant {
   reviews: Array<{ id: string; comment: string; foodRating?: number; deliveryRating?: number; customer?: { name: string } }>;
 }
 
-export default function RestaurantPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function RestaurantPage({ params }: { params: { id: string } }) {
+  const { id } = params;
   const [data, setData] = useState<Restaurant | null>(null);
   const addToCart = useApp((s) => s.addToCart);
   const user = useApp((s) => s.user);
@@ -92,7 +92,7 @@ export default function RestaurantPage({ params }: { params: Promise<{ id: strin
       <div className="relative h-56 w-full overflow-hidden md:h-72">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={data.bannerUrl ?? `https://source.unsplash.com/featured/1600x800/?${encodeURIComponent(data.cuisineTypes[0] ?? 'food')}`}
+          src={data.bannerUrl ?? `https://loremflickr.com/1600/800/${encodeURIComponent(data.cuisineTypes[0] ?? 'food')},food`}
           alt={data.name}
           className="h-full w-full object-cover"
         />
@@ -151,7 +151,7 @@ export default function RestaurantPage({ params }: { params: Promise<{ id: strin
                       <div className="relative">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={m.imageUrl ?? `https://source.unsplash.com/featured/200x200/?${encodeURIComponent(m.name)}`}
+                          src={m.imageUrl ?? `https://loremflickr.com/200/200/${encodeURIComponent(m.name)},food`}
                           alt={m.name}
                           className="h-24 w-24 rounded-xl object-cover"
                         />
