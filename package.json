@@ -1,0 +1,31 @@
+{
+  "name": "food-delivery-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Modern multi-vendor food delivery platform with AI-powered recommendations, live tracking, and merchant/courier/admin portals.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c blue,magenta \"npm run dev -w @food/api\" \"npm run dev -w @food/web\"",
+    "build": "npm run build -w @food/database && npm run build -w @food/shared && npm run build -w @food/ai && npm run build -w @food/api && npm run build -w @food/web",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "db:generate": "npm run db:generate -w @food/database",
+    "db:migrate": "npm run db:migrate -w @food/database",
+    "db:push": "npm run db:push -w @food/database",
+    "db:seed": "npm run db:seed -w @food/database",
+    "db:studio": "npm run db:studio -w @food/database",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
