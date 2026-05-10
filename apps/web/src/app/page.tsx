@@ -18,7 +18,7 @@ export default function Home() {
     <div className="min-h-screen">
       <Header />
       <main>
-        <section className="relative overflow-hidden border-b border-gray-100 bg-gradient-to-br from-brand-50 via-white to-amber-50">
+        <section className="relative overflow-hidden border-b border-gray-100 bg-hero-glow">
           <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
             <div className="grid gap-10 md:grid-cols-2 md:items-center">
               <div>

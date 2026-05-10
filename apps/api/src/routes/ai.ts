@@ -4,7 +4,13 @@ import { authRequired, requireRole } from '../auth/middleware';
 import { asyncHandler } from '../utils/asyncHandler';
 import { getValidated, validate } from '../utils/validate';
 import { MealAssistantSchema, RecommendationsSchema, haversineKm, estimateDriveMinutes } from '@food/shared';
-import { MealAssistantService, RecommendationService } from '@food/ai';
+import {
+  MealAssistantService,
+  RecommendationService,
+  listAgents,
+  getAgent,
+} from '@food/ai';
+import { Forbidden, NotFound } from '../utils/errors';
 
 const router = Router();
 const recommender = new RecommendationService();
@@ -149,6 +155,48 @@ router.post(
     });
 
     res.json(result);
+  }),
+);
+
+// -------- Agent registry --------
+
+router.get(
+  '/agents',
+  authRequired,
+  asyncHandler(async (req, res) => {
+    const role = req.user!.role;
+    const agents = listAgents()
+      .filter((a) => a.rolesAllowed.includes(role) || role === 'ADMIN')
+      .map((a) => ({
+        id: a.id,
+        name: a.name,
+        description: a.description,
+        capabilities: a.capabilities,
+        rolesAllowed: a.rolesAllowed,
+        sampleInput: a.sampleInput,
+      }));
+    res.json({ items: agents });
+  }),
+);
+
+router.post(
+  '/agents/:id/run',
+  authRequired,
+  asyncHandler(async (req, res) => {
+    const agent = getAgent(req.params.id);
+    if (!agent) throw NotFound('Agent not found');
+    const role = req.user!.role;
+    if (!agent.rolesAllowed.includes(role) && role !== 'ADMIN') {
+      throw Forbidden('You cannot run this agent');
+    }
+    const t0 = Date.now();
+    const result = await agent.run(req.body?.input ?? {}, { userId: req.user!.sub, userRole: role });
+    res.json({
+      agentId: agent.id,
+      name: agent.name,
+      durationMs: Date.now() - t0,
+      ...result,
+    });
   }),
 );
 

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FoodPilot — Modern food delivery, smarter with AI</title>
+  <meta name="description" content="FoodPilot is a modern, multi-vendor food-delivery platform with AI-powered recommendations, conversational ordering, live tracking and transparent fees." />
+  <meta property="og:title" content="FoodPilot — Modern food delivery, smarter with AI" />
+  <meta property="og:description" content="AI-powered, multi-vendor food delivery platform. Browse, order, and track in real time." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f78c05'/%3E%3Ctext x='50%25' y='52%25' text-anchor='middle' font-family='ui-sans-serif,system-ui' font-size='40' font-weight='700' fill='white'%3EF%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --brand-50:#fff8eb; --brand-100:#ffeac4; --brand-300:#ffba47;
+      --brand-500:#f78c05; --brand-600:#db6f00; --brand-700:#b25204;
+      --teal-50:#effaf8; --teal-500:#2f8e87; --teal-700:#1f5b58;
+      --forest-500:#5ea330; --forest-700:#39651e;
+      --bg:#faf8f4; --fg:#0f172a; --muted:#475569; --surface:#ffffff;
+    }
+    *,*::before,*::after { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration:none; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    /* nav */
+    .nav { position: sticky; top:0; z-index:30; background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(15,23,42,0.06); }
+    .nav-inner { display:flex; justify-content:space-between; align-items:center; padding: 14px 0; }
+    .logo { display:flex; gap:10px; align-items:center; font-weight: 700; }
+    .logo-mark { width:32px; height:32px; border-radius:10px; background: linear-gradient(135deg,#f78c05,#b25204); color:white; display:grid; place-items:center; font-weight:800; box-shadow: 0 6px 16px rgba(247,140,5,0.35);}
+    .nav a.link { color:#334155; font-size:14px; margin: 0 12px; }
+    .nav a.link:hover { color: #0f172a; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding: 10px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor:pointer; border: 1px solid transparent; transition: all .15s ease; }
+    .btn-primary { background: linear-gradient(135deg,#f78c05,#b25204); color:white; box-shadow: 0 8px 24px rgba(247,140,5,0.25); }
+    .btn-primary:hover { filter: brightness(1.05); }
+    .btn-ghost { background: transparent; color:#334155; }
+    .btn-outline { background: white; color:#1f2937; border-color: #e2e8f0; }
+    .btn-teal { background: var(--teal-500); color: white; }
+    /* hero */
+    .hero { background: radial-gradient(80% 60% at 30% 20%, #ffeac4 0%, #fff8eb 40%, #ffffff 80%); padding: 64px 0 80px; border-bottom: 1px solid rgba(15,23,42,0.06); }
+    .hero-grid { display:grid; gap: 40px; grid-template-columns: 1fr; align-items: center; }
+    @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.05fr 0.95fr; } }
+    .pill { display:inline-flex; align-items:center; gap:6px; background: white; padding: 6px 12px; border-radius:999px; font-size:12px; font-weight:600; color: var(--brand-700); border:1px solid var(--brand-100); }
+    .pill .dot { width:6px; height:6px; border-radius:999px; background: var(--brand-500); }
+    h1 { font-size: clamp(36px, 6vw, 56px); line-height: 1.05; letter-spacing:-0.02em; margin: 16px 0 14px; font-weight: 800; }
+    h1 .accent { color: var(--brand-600); }
+    .sub { color:#475569; max-width: 520px; font-size: 17px; line-height: 1.55; }
+    .search-bar { display:flex; gap:8px; align-items:center; max-width: 520px; background:white; border: 1px solid #e2e8f0; border-radius: 999px; padding: 5px 5px 5px 16px; margin-top: 24px; box-shadow: 0 6px 24px rgba(15,23,42,0.06); }
+    .search-bar input { flex:1; border:0; outline:0; font-size:14px; padding: 10px 8px; background: transparent; }
+    .chip-row { display:flex; flex-wrap: wrap; gap:8px; margin-top: 14px; }
+    .chip { background: white; border: 1px solid #e2e8f0; padding: 6px 12px; border-radius:999px; font-size: 13px; color:#1f2937; }
+    .gallery { display:grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .gallery img { width:100%; height: 180px; object-fit: cover; border-radius: 18px; box-shadow: 0 8px 24px rgba(15,23,42,0.08); }
+    @media (min-width: 900px) { .gallery img { height: 220px; } }
+    /* sections */
+    section { padding: 60px 0; }
+    section h2 { font-size: clamp(26px, 3.4vw, 34px); letter-spacing: -0.01em; margin: 0 0 24px; font-weight: 800; }
+    .cuisines { display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; }
+    @media (min-width: 700px) { .cuisines { grid-template-columns: repeat(5, 1fr); } }
+    .cuisine { background:white; padding: 14px; border-radius:18px; text-align:center; box-shadow: 0 4px 16px rgba(15,23,42,0.04); border:1px solid #efeae0; }
+    .cuisine img { width: 80px; height: 80px; border-radius:14px; object-fit: cover; }
+    .cuisine span { display:block; margin-top: 8px; font-size: 13px; font-weight: 600; }
+    .features { display:grid; gap:14px; grid-template-columns: 1fr; }
+    @media (min-width: 700px) { .features { grid-template-columns: repeat(3, 1fr); } }
+    .feature { background:white; padding: 18px; border-radius:18px; box-shadow: 0 4px 16px rgba(15,23,42,0.04); border:1px solid #efeae0; }
+    .feature .ico { width: 36px; height:36px; border-radius:10px; background: var(--brand-50); display:grid; place-items:center; color: var(--brand-700); margin-bottom: 10px; font-weight: 700; font-size: 18px; }
+    .feature h3 { margin: 0 0 6px; font-size: 16px; font-weight: 700; }
+    .feature p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+    /* agents */
+    .agents { background: linear-gradient(180deg, #fffaf2 0%, #ffffff 100%); border-top: 1px solid #f1ead9; border-bottom: 1px solid #f1ead9; }
+    .agent-grid { display:grid; gap:12px; grid-template-columns: 1fr; }
+    @media (min-width: 700px) { .agent-grid { grid-template-columns: repeat(3, 1fr); } }
+    .agent-card { background:white; padding:18px; border-radius:18px; border:1px solid #f1ead9; box-shadow: 0 4px 16px rgba(15,23,42,0.04); }
+    .agent-card .badge { display:inline-block; background: var(--teal-50); color: var(--teal-700); font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: .04em; }
+    .agent-card h3 { margin: 10px 0 6px; font-size: 16px; font-weight: 700; }
+    .agent-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    /* roles */
+    .roles { display:grid; gap:14px; grid-template-columns: 1fr; }
+    @media (min-width: 800px) { .roles { grid-template-columns: repeat(4, 1fr); } }
+    .role { background: white; padding: 18px; border-radius: 18px; box-shadow: 0 4px 16px rgba(15,23,42,0.04); border:1px solid #efeae0; }
+    .role .ico { width: 36px; height:36px; border-radius:10px; background: var(--teal-50); color: var(--teal-700); display:grid; place-items:center; margin-bottom: 8px; font-weight: 800; }
+    .role h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; }
+    .role p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    /* cta */
+    .cta { background: linear-gradient(135deg, #f78c05, #b25204); color: white; text-align:center; padding: 56px 0; }
+    .cta h2 { color: white; margin: 0 0 8px; }
+    .cta p { color: rgba(255,255,255,0.85); margin: 0 0 20px; }
+    .cta .btn-outline { background: white; color: var(--brand-700); border: 1px solid white; }
+    /* footer */
+    footer { padding: 32px 0; text-align:center; color: var(--muted); font-size: 13px; }
+    /* utility */
+    .row { display:flex; align-items:center; gap:12px; }
+    .grow { flex: 1; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="#"><span class="logo-mark">F</span> FoodPilot</a>
+      <nav>
+        <a class="link" href="#features">Features</a>
+        <a class="link" href="#agents">AI agents</a>
+        <a class="link" href="#roles">For everyone</a>
+        <a class="link" href="https://github.com/Rafey198/Food-Delivery-App" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+      <div class="row">
+        <a class="btn btn-ghost" href="https://github.com/Rafey198/Food-Delivery-App/pull/1" target="_blank" rel="noreferrer">View PR</a>
+        <a class="btn btn-primary" href="https://github.com/Rafey198/Food-Delivery-App" target="_blank" rel="noreferrer">Get the code</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="pill"><span class="dot"></span> AI-powered · Local-first</span>
+          <h1>Crave it. Order it. <span class="accent">Eat it.</span></h1>
+          <p class="sub">FoodPilot is a production-shaped, multi-vendor food-delivery platform with AI recommendations, conversational ordering, live tracking and transparent fees — built end-to-end in this repo.</p>
+          <div class="search-bar">
+            <span aria-hidden="true">📍</span>
+            <input placeholder="Enter your delivery address" />
+            <button class="btn btn-primary">Find food</button>
+          </div>
+          <div class="chip-row">
+            <span class="chip">Pakistani</span>
+            <span class="chip">Pizza</span>
+            <span class="chip">Burgers</span>
+            <span class="chip">Healthy Bowls</span>
+            <span class="chip">Middle Eastern</span>
+          </div>
+        </div>
+        <div class="gallery" aria-hidden="true">
+          <img src="https://loremflickr.com/600/600/biryani,food" alt="" />
+          <img src="https://loremflickr.com/600/600/pizza,food" alt="" />
+          <img src="https://loremflickr.com/600/600/burger,food" alt="" />
+          <img src="https://loremflickr.com/600/600/bowl,salad,healthy" alt="" />
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container">
+        <h2>Why FoodPilot</h2>
+        <div class="features">
+          <div class="feature"><div class="ico">✨</div><h3>AI Meal Pilot</h3><p>Tell us your budget, mood and diet — FoodPilot picks 3 grounded meals from real menus and adds them to your cart in one tap.</p></div>
+          <div class="feature"><div class="ico">🚴</div><h3>Live tracking</h3><p>Watch your courier move on the map in real time over WebSocket. ETA refreshes as conditions change.</p></div>
+          <div class="feature"><div class="ico">🌱</div><h3>Sustainability built in</h3><p>Eco-packaging, no-cutlery, bicycle-courier preference and a per-restaurant sustainability score.</p></div>
+          <div class="feature"><div class="ico">💸</div><h3>Transparent fees</h3><p>Every fee is broken down before you pay. No hidden surge. Couriers see exactly how every dollar of pay is calculated.</p></div>
+          <div class="feature"><div class="ico">🧠</div><h3>Smart recommendations</h3><p>Interpretable scoring across rating, distance, speed, price-fit and your order history — with reasons attached.</p></div>
+          <div class="feature"><div class="ico">🕒</div><h3>Schedule ahead</h3><p>Order now or pre-schedule for later. Group orders, gift orders, and split payments are first-class.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="agents" class="agents">
+      <div class="container">
+        <h2>12 AI agents working behind the scenes</h2>
+        <p class="sub" style="max-width:760px; margin-bottom: 28px;">FoodPilot ships with a real agent registry. Each agent is self-describing, role-gated, and exposes <code>run(input)</code> with structured <code>reasoning</code>, <code>confidence</code>, and the <code>tools</code> it used — visible in the admin playground.</p>
+        <div class="agent-grid">
+          <div class="agent-card"><span class="badge">Customer</span><h3>Meal Assistant Agent</h3><p>Conversational ordering. Parses budget + diet, returns 3 grounded picks from real menus. Never hallucinates dishes.</p></div>
+          <div class="agent-card"><span class="badge">Customer</span><h3>Recommendation Agent</h3><p>Ranks restaurants and dishes with weighted, explainable signals (rating, speed, price-fit, popularity, history).</p></div>
+          <div class="agent-card"><span class="badge">Customer</span><h3>Support Agent</h3><p>Triages messages, classifies intent (refund/delay/wrong order), drafts a polite reply, escalates high-severity tickets.</p></div>
+          <div class="agent-card"><span class="badge">Customer</span><h3>Nutrition Coach Agent</h3><p>Picks meals that fit your daily calorie budget and goal (weight loss, muscle gain, low-sodium).</p></div>
+          <div class="agent-card"><span class="badge">Customer</span><h3>Substitution Agent</h3><p>If an item goes out of stock, finds the best dietary-safe substitute by tag overlap, allergens and price proximity.</p></div>
+          <div class="agent-card"><span class="badge">Merchant</span><h3>Review Intelligence Agent</h3><p>Summarises reviews into highlights, complaints, sentiment, and AI-drafted polite replies.</p></div>
+          <div class="agent-card"><span class="badge">Merchant</span><h3>Menu Tagging Agent</h3><p>Auto-tags new menu items with cuisine, dietary, allergens, spice level. Flags HALAL/VEGAN/allergens for merchant confirmation.</p></div>
+          <div class="agent-card"><span class="badge">Operations</span><h3>Dispatch Agent</h3><p>Multi-objective courier ranker with fairness rotation. Each offer ships with reasoning ("Distance 0.6 km; needs more jobs").</p></div>
+          <div class="agent-card"><span class="badge">Operations</span><h3>Demand Forecast Agent</h3><p>24-hour zone-level forecast with peak boost and confidence. Same interface for a future ML model.</p></div>
+          <div class="agent-card"><span class="badge">Risk</span><h3>Fraud Detection Agent</h3><p>Velocity + card-cycling + IP-country + chargeback signals. Returns BLOCK / REVIEW / APPROVE with visible reasons.</p></div>
+          <div class="agent-card"><span class="badge">Growth</span><h3>Churn Prediction Agent</h3><p>RFM-based churn probability + segment (LOYAL / DORMANT / AT_RISK / CHURNED) + tailored retention play.</p></div>
+          <div class="agent-card"><span class="badge">Pricing</span><h3>Pricing Optimisation Agent</h3><p>Transparent surge: peak hour + weather + courier supply + demand, capped at 1.5x. Every reason shown.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roles">
+      <div class="container">
+        <h2>One platform, four polished apps</h2>
+        <div class="roles">
+          <div class="role"><div class="ico">👩</div><h3>Customer</h3><p>Mobile-first browse, cart, sticky checkout, AI assistant, live order tracking, loyalty.</p></div>
+          <div class="role"><div class="ico">🍳</div><h3>Merchant</h3><p>Kanban order board, AI menu tagging, AI review insights, payouts dashboard, hours + radius.</p></div>
+          <div class="role"><div class="ico">🚴</div><h3>Courier</h3><p>Go-online toggle, transparent offers ("why offered to you"), pay breakdown, fairness rotation, appeal flow.</p></div>
+          <div class="role"><div class="ico">🛠️</div><h3>Admin</h3><p>KPIs, orders, users, restaurants, couriers, coupons, demand heatmap, AI agent playground, audit logs.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <h2>Ready to dig into the code?</h2>
+        <p>Everything you saw above lives in one open repo — schema, API, AI agents, 4 portals, seed data, Docker, CI.</p>
+        <div class="row" style="justify-content:center;">
+          <a class="btn btn-outline" href="https://github.com/Rafey198/Food-Delivery-App" target="_blank" rel="noreferrer">View on GitHub</a>
+          <a class="btn btn-outline" href="https://github.com/Rafey198/Food-Delivery-App/pull/1" target="_blank" rel="noreferrer">Open PR #1</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © FoodPilot — demo platform · built with Next.js, Express, Prisma, Postgres, Redis, WebSockets and 12 AI agents.
+    </div>
+  </footer>
+</body>
+</html>

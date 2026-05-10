@@ -22,6 +22,21 @@ class MockProvider implements AIProvider {
     const lower = last.toLowerCase();
     const system = messages.find((m) => m.role === 'system')?.content?.toLowerCase() ?? '';
 
+    if (system.includes('customer-support') || system.includes('support agent')) {
+      const intentMatch = last.match(/Intent:\s*([A-Z_]+)/);
+      const intent = intentMatch?.[1] ?? '';
+      const templates: Record<string, string> = {
+        REFUND_REQUEST: 'I am really sorry about the experience. I can issue a refund right away — would a full refund or a 50% partial refund plus a $5 wallet credit work better for you?',
+        FOOD_QUALITY: 'I am so sorry the food did not arrive in good condition. I have flagged the restaurant and would like to make this right with a full refund — could you share a quick photo so I can move faster?',
+        WRONG_ORDER: 'Sorry about the mix-up. I can issue a refund for the missing items or send a fresh delivery — which would you prefer?',
+        DELIVERY_DELAY: 'I apologise for the delay — that is not the experience we aim for. I have applied a free-delivery coupon to your account and we are investigating what slowed this order down.',
+        CANCEL_ORDER: 'No problem — I can cancel this order and process the refund immediately. It should land back on your card within 3-5 business days.',
+        ACCOUNT: 'Thanks for reaching out. I have sent a password-reset link to your registered email — let me know if you do not see it within a few minutes.',
+        COUPONS: 'Happy to help! WELCOME10 (10% off) and FREESHIP (free delivery) are both active for your account.',
+      };
+      return templates[intent] ?? 'Thanks for reaching out — I am on it. Could you share a bit more detail so I can help you fastest?';
+    }
+
     if (system.includes('foodpilot') || system.includes('meal assistant')) {
       const linesAfter = last.split('\n').filter((l) => /^\d+\./.test(l.trim()));
       if (linesAfter.length) {

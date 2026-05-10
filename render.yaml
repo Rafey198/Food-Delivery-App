@@ -1,0 +1,51 @@
+services:
+  - type: web
+    name: food-api
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: .
+    buildCommand: npm install --no-audit --no-fund && npm run db:generate && npm run build -w @food/database && npm run build -w @food/shared && npm run build -w @food/ai && npm run build -w @food/api && npm run db:push -w @food/database && (npm run db:seed -w @food/database || true)
+    startCommand: node apps/api/dist/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_PORT
+        value: 10000
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: CORS_ORIGIN
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: food-db
+          property: connectionString
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: AI_PROVIDER
+        value: mock
+      - key: OPENAI_API_KEY
+        sync: false
+
+  - type: web
+    name: food-web
+    runtime: node
+    plan: free
+    region: oregon
+    rootDir: .
+    buildCommand: npm install --no-audit --no-fund && npm run build -w @food/shared && npm run build -w @food/web
+    startCommand: npm run start -w @food/web -- -p $PORT
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: NEXT_PUBLIC_WS_URL
+        sync: false
+
+databases:
+  - name: food-db
+    plan: free
+    databaseName: food
+    user: food

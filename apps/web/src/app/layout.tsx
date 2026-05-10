@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Providers } from '@/components/Providers';
 import { Toasts } from '@/components/Toasts';
+import { SupportWidget } from '@/components/SupportWidget';
 
 export const metadata: Metadata = {
   title: 'FoodPilot — Order food, fast',
@@ -16,6 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers>
           {children}
           <Toasts />
+          <SupportWidget />
         </Providers>
       </body>
     </html>

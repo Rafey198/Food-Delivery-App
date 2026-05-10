@@ -48,7 +48,7 @@ export default function LoginPage() {
 
   return (
     <div className="grid min-h-screen md:grid-cols-2">
-      <div className="hidden bg-gradient-to-br from-brand-500 to-amber-500 md:flex md:items-center md:justify-center md:p-10">
+      <div className="hidden bg-brand-gradient md:flex md:items-center md:justify-center md:p-10">
         <div className="max-w-sm text-white">
           <div className="badge mb-4 bg-white/20 text-white">FoodPilot</div>
           <h2 className="text-3xl font-semibold">Good food is one tap away.</h2>

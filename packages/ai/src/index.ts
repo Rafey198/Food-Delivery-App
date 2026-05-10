@@ -5,3 +5,5 @@ export * from './demand-forecast';
 export * from './dispatch';
 export * from './review-intel';
 export * from './menu-tagging';
+export * from './agent';
+export * from './agents';

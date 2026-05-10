@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AuthGuard } from '@/components/AuthGuard';
-import { LayoutDashboard, Users, Store, Bike, Receipt, Tag, BarChart3, ShieldQuestion, FileWarning } from 'lucide-react';
+import { LayoutDashboard, Users, Store, Bike, Receipt, Tag, BarChart3, ShieldQuestion, FileWarning, Cpu } from 'lucide-react';
 
 const NAV = [
   { href: '/admin', label: 'Overview', icon: LayoutDashboard },
@@ -13,6 +13,7 @@ const NAV = [
   { href: '/admin/couriers', label: 'Couriers', icon: Bike },
   { href: '/admin/coupons', label: 'Coupons', icon: Tag },
   { href: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
+  { href: '/admin/ai-agents', label: 'AI Agents', icon: Cpu },
   { href: '/admin/support', label: 'Support', icon: ShieldQuestion },
   { href: '/admin/audit', label: 'Audit logs', icon: FileWarning },
 ];
